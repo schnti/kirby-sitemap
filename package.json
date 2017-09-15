@@ -3,6 +3,10 @@
   "description": "kirby sitemap plugin and tag",
   "author": "Timo Schneider",
   "license": "MIT",
-  "version": "0.1.0",
-  "type": "kirby-plugin"
+  "version": "0.2.0",
+  "type": "kirby-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schnti/kirby-sitemap"
+  }
 }
