@@ -21,6 +21,43 @@ function check($p)
 	return false;
 }
 
+function recursiveNavigationJson($subpages = null)
+{
+	$array = array();
+
+	if ($subpages == null) {
+		$subpages = site()->pages();
+	}
+
+	foreach ($subpages AS $p) :
+
+		if (!check($p)) continue;
+
+		$sub = null;
+
+		//		$sitemap .= '<a href="' . $p->url() . '">' . $p->title() . '</a>';
+
+		if ($p->hasChildren()) {
+			$result = recursiveNavigationJson($p->children());
+
+			if ($result && $result['pages']) {
+				$sub = $result['pages'];
+			}
+		}
+
+		// Response
+		$array['pages'][] = [
+			'url' => $p->url(),
+			'title' => $p->title()->value(),
+			'id' => str_replace('/', '', $p->id()),
+			'pages' => $sub
+		];
+
+	endforeach;
+
+	return $array;
+}
+
 /**
  * @param Children $subpages
  * @return string HTML Sitemap
@@ -85,6 +122,19 @@ kirby()->routes(array(
 			$sitemap .= '</urlset>';
 
 			return new Response($sitemap, 'xml');
+
+		}
+	)
+));
+
+kirby()->routes(array(
+	array(
+		'pattern' => 'sitemap.json',
+		'action' => function () {
+
+			$array = recursiveNavigationJson();
+
+			return response::json($array);
 
 		}
 	)
