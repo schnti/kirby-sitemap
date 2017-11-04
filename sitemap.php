@@ -12,7 +12,7 @@ function check($p)
 	$showInvisibleSites = c::get('ka.sitemap.showInvisibleSites', false);
 
 	// invisible or include
-	if ($showInvisibleSites == true || !$p->isInvisible() || in_array($p->uri(), $includeSites)) {
+	if ($showInvisibleSites == true || ($p->isVisible() && ($p->isHomePage() || $p->parent()->isVisible())) || in_array($p->uri(), $includeSites)) {
 		// excluded site or template
 		if (!in_array($p->uri(), $excludeSites) && !in_array($p->intendedTemplate(), $excludeTemplates)) {
 			return true;
@@ -31,7 +31,8 @@ function recursiveNavigationJson($subpages = null)
 
 	foreach ($subpages AS $p) :
 
-		if (!check($p)) continue;
+		if (!check($p))
+			continue;
 
 		$sub = null;
 
@@ -73,7 +74,8 @@ function recursiveNavigation($subpages = null)
 
 	foreach ($subpages AS $p) {
 
-		if (!check($p)) continue;
+		if (!check($p))
+			continue;
 
 		$sitemap .= '<li>';
 
@@ -110,10 +112,11 @@ kirby()->routes(array(
 
 			foreach ($pages as $p) {
 
-				if (!check($p)) continue;
+				if (!check($p))
+					continue;
 
 				$sitemap .= '<url><loc>' . html($p->url());
-				$sitemap .= '</loc><lastmod>' . $p->modified('c') . '</lastmod><priority>';
+				$sitemap .= '</loc><lastmod>' . date('c', $p->modified()) . '</lastmod><priority>';
 				$sitemap .= ($p->isHomePage() || in_array($p->uri(), $importantSites)) ? 1 : 0.6 / $p->depth();
 				$sitemap .= '</priority></url>';
 
