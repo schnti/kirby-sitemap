@@ -12,7 +12,7 @@ function check($p)
 	$showInvisibleSites = c::get('ka.sitemap.showInvisibleSites', false);
 
 	// invisible or include
-	if ($showInvisibleSites == true || ($p->isVisible() && ($p->isHomePage() || $p->parent()->isVisible())) || in_array($p->uri(), $includeSites)) {
+	if ($showInvisibleSites == true || ($p->isVisible() && ($p->depth() == 1 || $p->parent()->isVisible())) || in_array($p->uri(), $includeSites)) {
 		// excluded site or template
 		if (!in_array($p->uri(), $excludeSites) && !in_array($p->intendedTemplate(), $excludeTemplates)) {
 			return true;
