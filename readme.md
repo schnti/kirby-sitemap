@@ -1,6 +1,6 @@
 # (simple) Sitemap Plugin
 
-A plugin for [Kirby 3 CMS](http://getkirby.com) that generates an `sitemap.xml` and HTML sitemap.
+A plugin for [Kirby CMS](http://getkirby.com) that generates an `sitemap.xml` and HTML sitemap.
 
 > :warning: Warning: there are config breaking changes between version 1. * and 2. *
 
@@ -8,14 +8,13 @@ A plugin for [Kirby 3 CMS](http://getkirby.com) that generates an `sitemap.xml` 
 
 This plugin is free but if you use it in a commercial project please consider
 
-- [making a donation](https://www.paypal.me/schnti/5) or
-- [buying a Kirby license using this affiliate link](https://a.paddle.com/v2/click/1129/48194?link=1170)
+- [making a donation](https://www.paypal.me/schnti/5)
 
 ## Installation
 
 ### Download
 
-[Download the files](https://github.com/schnti/kirby3-sitemap/archive/master.zip) and place them inside `site/plugins/sitemap`.
+[Download the files](https://github.com/schnti/kirby-sitemap/archive/master.zip) and place them inside `site/plugins/sitemap`.
 
 ### Composer
 
@@ -27,7 +26,7 @@ composer require schnti/sitemap
 You can add the plugin as a Git submodule.
 
     $ cd your/project/root
-    $ git submodule add https://github.com/schnti/kirby3-sitemap.git site/plugins/sitemap
+    $ git submodule add https://github.com/schnti/-sitemap.git site/plugins/sitemap
     $ git submodule update --init --recursive
     $ git commit -am "Add Kirby Sitemap plugin"
 
